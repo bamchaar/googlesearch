@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/amineatya/Google_books/static/css/main.99d2c493.chunk.css",
-    "main.js": "/amineatya/Google_books/static/js/main.4dca19a6.chunk.js",
-    "main.js.map": "/amineatya/Google_books/static/js/main.4dca19a6.chunk.js.map",
+    "main.js": "/amineatya/Google_books/static/js/main.56a2297f.chunk.js",
+    "main.js.map": "/amineatya/Google_books/static/js/main.56a2297f.chunk.js.map",
     "runtime-main.js": "/amineatya/Google_books/static/js/runtime-main.76fe44b7.js",
     "runtime-main.js.map": "/amineatya/Google_books/static/js/runtime-main.76fe44b7.js.map",
     "static/css/2.a8ba0f7c.chunk.css": "/amineatya/Google_books/static/css/2.a8ba0f7c.chunk.css",
     "static/js/2.857712a8.chunk.js": "/amineatya/Google_books/static/js/2.857712a8.chunk.js",
     "static/js/2.857712a8.chunk.js.map": "/amineatya/Google_books/static/js/2.857712a8.chunk.js.map",
     "index.html": "/amineatya/Google_books/index.html",
-    "precache-manifest.c9d62f21381b2f3e4908a3f3e01ba327.js": "/amineatya/Google_books/precache-manifest.c9d62f21381b2f3e4908a3f3e01ba327.js",
+    "precache-manifest.747fabefab0fbc9cf8adeaf96983afe7.js": "/amineatya/Google_books/precache-manifest.747fabefab0fbc9cf8adeaf96983afe7.js",
     "service-worker.js": "/amineatya/Google_books/service-worker.js",
     "static/css/2.a8ba0f7c.chunk.css.map": "/amineatya/Google_books/static/css/2.a8ba0f7c.chunk.css.map",
     "static/css/main.99d2c493.chunk.css.map": "/amineatya/Google_books/static/css/main.99d2c493.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.a8ba0f7c.chunk.css",
     "static/js/2.857712a8.chunk.js",
     "static/css/main.99d2c493.chunk.css",
-    "static/js/main.4dca19a6.chunk.js"
+    "static/js/main.56a2297f.chunk.js"
   ]
 }
