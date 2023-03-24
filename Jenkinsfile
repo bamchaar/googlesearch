@@ -1,58 +1,36 @@
-@Library('jenkins-shared-repo')
-def gv
-
 pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
+  agent any
+  
+  stages {
+    stage('Build') {
+      steps {
+        sh 'npm install'
+        sh 'npm run build'
+      }
     }
-    tools{
-    maven 'mvn-3.9'
-    }
-    environment{
-    	NEW_VERSION = '2.0'
-    }
-    stages {
-        stage('Build image') {
-            steps {
-                script{
-		    buildImagePet()
-                }
-            }
-        }        
-        stage('Deploy') {
-                	when{
-        		expression{
-        		   env.BRANCH_NAME == 'master'
-        		}
-        	}        
-        	input{
-        		message "Select the environment to deploy"
-        		ok "Done"
-        		parameters{
-        		choice(name: 'environment1', choices: ['dev', 'staging', 'prod'], description:'')
-        		choice(name: 'environment2', choices: ['dev', 'staging', 'prod'], description:'')
-        		}
-        	} 
-            steps {
-				script{
-				echo " deploy ${environment1}"
-				echo " deploy ${environment2}"
-			}
-            }
+    stage('Docker Build and Push') {
+      environment {
+        DOCKER_REGISTRY = 'tcdmv'
+        IMAGE_NAME = 'googlesearch'
+        TAG = '1.0.0'
+      }
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'tcdmvkey', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+          sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
+          sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REGISTRY"
+          sh "docker push $DOCKER_REGISTRY/$IMAGE_NAME:$TAG"
         }
-        stage('Deliver') { 
-                	when{
-        		expression{
-        			env.BRANCH_NAME == 'master'
-        		}
-        	}        
-            steps {
-			script{
-				env.REPO = input message:"Select the repo to deliver to", ok: "Done", parameters:[choice(name: 'environment1', choices: ['DockerHub', 'Nexus', 'AWS-ECR'], description:'')]
-				echo "Deliver to ${REPO}"
-				}
-            }
-        }
+      }
     }
-} 
+    stage('Deploy') {
+      environment {
+        IMAGE_NAME = 'tcdmv/googlesearch'
+        TAG = '1.0.0'
+      }
+      steps {
+        sh "docker-compose pull"
+        sh "docker-compose up -d"
+      }
+    }
+  }
+}
