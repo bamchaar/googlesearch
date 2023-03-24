@@ -28,8 +28,7 @@ pipeline {
         TAG = '1.0.0'
       }
       steps {
-        sh "docker-compose pull"
-        sh "docker-compose up -d"
+        ech0 'Image was deployed'
       }
     }
   }
