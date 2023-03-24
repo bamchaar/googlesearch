@@ -28,7 +28,13 @@ pipeline {
         TAG = '1.0.0'
       }
       steps {
-        echo 'Image was deployed'
+        script{
+          def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG "
+        sshagent(['ec2-jenkins-docker-server']) {
+                 sh "ssh -o StrictHostKeyChecking=no ec2-user@54.237.5.9 $DockerCmd"
+
+                }
+        }
       }
     }
   }
