@@ -10,7 +10,7 @@ pipeline {
     }
     stage('Docker Build and Push') {
       environment {
-        DOCKER_REGISTRY = '/tcdmv'
+        DOCKER_REGISTRY = 'tcdmv'
         IMAGE_NAME = 'googlesearch'
         TAG = '1.0.0'
       }
