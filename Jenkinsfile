@@ -15,7 +15,7 @@ pipeline {
         TAG = '1.0.0'
       }
       steps {
-        withCredentials([usernamePassword(credentialsId: 'tcdmvText', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'dockerHubKey', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
           sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REGISTRY"
           sh "docker push $DOCKER_REGISTRY/$IMAGE_NAME:$TAG"
