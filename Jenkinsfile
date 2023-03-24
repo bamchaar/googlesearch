@@ -28,7 +28,7 @@ pipeline {
         TAG = '1.0.0'
       }
       steps {
-        ech0 'Image was deployed'
+        echo 'Image was deployed'
       }
     }
   }
