@@ -31,15 +31,14 @@ pipeline {
         SSH_USER = 'ec2-user'
         SSH_HOST = 'ec2-18-215-16-113.compute-1.amazonaws.com'
         SSH_PORT = '22'
-        APP_DIRECTORY = '/var/www/html'
       }
       steps {
         script{
-          def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG "
-          withCredentials([sshUserPrivateKey(credentialsId: 'DJToken', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+          def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG"
+          sshagent(['DJToken']) {
           sh '''
             docker pull $DOCKER_IMAGE
-            ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST ${ DockerCmd}
+            ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}
           '''
       }
     }
