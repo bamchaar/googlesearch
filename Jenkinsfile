@@ -35,9 +35,8 @@ pipeline {
       steps {
         script{
           def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG"
-          sshagent(['D-J-Ky']) {
+          sshagent(['djkey']) {
           sh '''
-            docker pull $DOCKER_IMAGE
             ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}
           '''
       }
