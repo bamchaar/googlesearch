@@ -26,8 +26,6 @@ pipeline {
       environment {
         IMAGE_NAME = 'tcdmv/googlesearch'
         TAG = '1.0.0'
-        DOCKER_IMAGE = 'tcdmv/googlesearch:tag'
-        SSH_PRIVATE_KEY = credentials('DJToken')
         SSH_USER = 'ec2-user'
         SSH_HOST = 'ec2-18-215-16-113.compute-1.amazonaws.com'
         SSH_PORT = '22'
@@ -38,7 +36,8 @@ pipeline {
           sshagent(['djkey']) {
           sh '''
             ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}
-          '''
+         
+         '''
       }
     }
   }
