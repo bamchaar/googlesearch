@@ -31,7 +31,7 @@ pipeline {
         script{
           def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG "
         sshagent(['DJToken']) {
-          sh "ssh -o StrictHostKeyChecking=no ec2-user@18.215.16.113 ${DockerCmd}"
+          sh "ssh -o StrictHostKeyChecking=no -i '~/.ssh/DockerJenkinsToken.pem' ec2-user@18.215.16.113 ${DockerCmd}"
 
                 }
         }
