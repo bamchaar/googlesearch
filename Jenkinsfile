@@ -39,18 +39,14 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
           sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
-        }
-          steps {
+          }
         withCredentials([sshUserPrivateKey(credentialsId: 'DockerToken', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
           sh '''
             docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
             docker pull $DOCKER_IMAGE
             ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST docker run  -p 3080:3080 -d ${DOCKER_IMAGE}
-          '''
-        }
-
-        }
+          '''       
       }
     }
   }
