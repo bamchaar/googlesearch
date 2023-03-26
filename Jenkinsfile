@@ -32,7 +32,7 @@ pipeline {
       }
       steps {
         script{
-          sshagent(['djkey']) {
+          sshagent(['ec2key']) {
           sh 'ssh -o StrictHostKeyChecking=no ec2-100-26-244-184.compute-1.amazonaws.com docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.1'
         }
     }
