@@ -27,7 +27,6 @@ pipeline {
         IMAGE_NAME = 'tcdmv/googlesearch'
         TAG = '1.0.1'
         SSH_USER = 'ec2-user'
-        SSH_HOST = 'ec2-18-215-16-113.compute-1.amazonaws.com'
         SSH_PORT = '22'
       }
       steps {
