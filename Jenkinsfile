@@ -33,6 +33,10 @@ pipeline {
       steps {
         script{
           def DockerCmd = "docker run -itd -p 3080:3080 -d $IMAGE_NAME:$TAG"
+          sshagent(['prvtKeyEc2']) {
+          sh 'ssh ec2-user@18.215.16.113 docker pull tcdmv/googlesearch:1.0.0'
+          sh 'ssh ec2-user@18.215.16.113 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.0'
+        }
           sh " ${DockerCmd}"
     }
   }
