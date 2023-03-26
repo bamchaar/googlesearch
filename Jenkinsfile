@@ -32,8 +32,8 @@ pipeline {
       }
       steps {
         script{
-          def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG"
-          sh "ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}"
+          def DockerCmd = "docker run -itd -p 3080:3080 -d $IMAGE_NAME:$TAG"
+          sh " ${DockerCmd}"
     }
   }
 }
