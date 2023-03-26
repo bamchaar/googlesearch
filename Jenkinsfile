@@ -12,7 +12,7 @@ pipeline {
       environment {
         DOCKER_REGISTRY = 'tcdmv'
         IMAGE_NAME = 'googlesearch'
-        TAG = '1.0.0'
+        TAG = '1.0.1'
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy') {
       environment {
         IMAGE_NAME = 'tcdmv/googlesearch'
-        TAG = '1.0.0'
+        TAG = '1.0.1'
         SSH_USER = 'ec2-user'
         SSH_HOST = 'ec2-18-215-16-113.compute-1.amazonaws.com'
         SSH_PORT = '22'
