@@ -34,10 +34,10 @@ pipeline {
         script{
           def DockerCmd = "docker run -itd -p 3080:3080 -d $IMAGE_NAME:$TAG"
             withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-              sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
               sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
         }
           sshagent(['prvtKeyEc2']) {
+          sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
           sh 'ssh ec2-user@18.215.16.113 docker pull tcdmv/googlesearch:1.0.0'
           sh 'ssh ec2-user@18.215.16.113 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.0'
         }
