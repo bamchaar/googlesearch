@@ -37,7 +37,7 @@ pipeline {
               sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
         }
           sshagent(['prvtKeyEc2']) {
-          sh 'ssh  ec2-user@18.215.16.113 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.0'
+          sh 'ssh  -o StrictHostKeyChecking=no ec2-user@18.215.16.113 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.0'
         }
     }
   }
