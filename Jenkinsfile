@@ -33,12 +33,7 @@ pipeline {
       steps {
         script{
           def DockerCmd = "docker run -p 3080:3080 -d $IMAGE_NAME:$TAG"
-          sshagent(['djkey']) {
-          sh '''
-            ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}
-         
-         '''
-      }
+          sh "ssh -o StrictHostKeyChecking=no  $SSH_USER@$SSH_HOST ${DockerCmd}"
     }
   }
 }
