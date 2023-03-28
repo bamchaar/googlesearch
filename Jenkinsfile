@@ -17,7 +17,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DockerId', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
-          sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
+          sh "echo $DOCKER_PASSWORD | docker login -u tcdmv --password-stdin"
           sh "docker push $DOCKER_REGISTRY/$IMAGE_NAME:$TAG"
         }
       }
