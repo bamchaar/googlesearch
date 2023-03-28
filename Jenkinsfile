@@ -17,7 +17,6 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DockerId', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
           sh "echo $DOCKER_PASSWORD | docker login -u tcdmv --password-stdin"
-        }
       }
     }
     stage('Deploy') {
