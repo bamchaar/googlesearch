@@ -29,10 +29,13 @@ pipeline {
                                    }
                       steps {
                         script {
-                          sshagent(['ec2-user-server']) {
-                            sh 'ssh -o StrictHostKeyChecking=no  ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
-                                                 }
-                               }
+                          withCredentials([sshUserPrivateKey(credentialsId: 'ec2-user-server', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+                              sh """
+                                  chmod 0600 \$SSH_KEY_FILE
+                                  ssh -i \$SSH_KEY_FILE \$SSH_USER@3.82.171.111
+                                  docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3
+                              """
+                          }
                              }      
                    }
   }
