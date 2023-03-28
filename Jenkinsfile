@@ -12,7 +12,7 @@ pipeline {
       environment {
         DOCKER_REGISTRY = 'tcdmv'
         IMAGE_NAME = 'googlesearch'
-        TAG = '1.0.2'
+        TAG = '1.0.3'
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DockerId', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -25,14 +25,14 @@ pipeline {
     stage('Deploy') {
       environment {
         IMAGE_NAME = 'tcdmv/googlesearch'
-        TAG = '1.0.2'
+        TAG = '1.0.3'
         SSH_USER = 'ec2-user'
         SSH_PORT = '22'
       }
       steps {
         script{
-          sshagent(['ssh-key']) {
-             sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.1'
+          sshagent(['jenKey']) {
+             sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
 }
 
     }
