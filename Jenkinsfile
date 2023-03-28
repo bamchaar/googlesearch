@@ -36,6 +36,7 @@ pipeline {
                                   docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3
                               """
                           }
+                          }
                              }      
                    }
   }
