@@ -4,21 +4,20 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install'
-        sh 'npm run build'
+        echo 'image was build'
       }
     }
     stage('Docker Build and Push') {
       environment {
         DOCKER_REGISTRY = 'tcdmv'
         IMAGE_NAME = 'googlesearch'
-        TAG = '1.0.3'
+        TAG = '7'
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'DockerToken', usernameVariable: 'DockerId', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh "docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:$TAG ."
           sh "echo $DOCKER_PASSWORD | docker login -u tcdmv --password-stdin"
-          sh "docker push $DOCKER_REGISTRY/$IMAGE_NAME:$TAG"
+          sh "docker pull $DOCKER_REGISTRY/$IMAGE_NAME:$TAG"
         }
       }
     }
@@ -32,7 +31,7 @@ pipeline {
       steps {
         script {
           sshagent(['jenKeyMP']) {
-            sh 'ssh -o StrictHostKeyChecking=no  ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
+            sh 'ssh -o StrictHostKeyChecking=no  ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:7'
 }
         }
         
