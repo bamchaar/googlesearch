@@ -19,6 +19,7 @@ pipeline {
           sh "echo $DOCKER_PASSWORD | docker login -u tcdmv --password-stdin"
       }
     }
+    }
     stage('Deploy') {
       environment {
         IMAGE_NAME = 'tcdmv/googlesearch'
@@ -30,10 +31,10 @@ pipeline {
         script {
           sshagent(['jenKeyMP']) {
             sh 'ssh -o StrictHostKeyChecking=no  ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
-        }
-        
-      }      
-  }
-}
+                                 }
+               }
+             }      
+                      }
+      }
   }
 }
