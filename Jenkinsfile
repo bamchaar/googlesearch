@@ -30,9 +30,13 @@ pipeline {
         SSH_PORT = '22'
       }
       steps {
+        script {
+          sshagent(['jenKeyMP']) {
+            sh 'ssh -o StrictHostKeyChecking=no  ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
+}
+        }
         
-             sh 'ssh -o StrictHostKeyChecking=no -i "~/.ssh/djkey.pem" ec2-user@3.82.171.111 docker run -d -p 3080:3080 tcdmv/googlesearch:1.0.3'
-
+             
   }
 }
   }
